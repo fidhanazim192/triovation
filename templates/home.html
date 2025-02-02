@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Triovation - Outfit Matching</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Triovation</a>
+        </div>
+    </nav>
+
+    <div class="container text-center mt-5 fade-in">
+        <h1>Upload an outfit to get matching accessories:</h1>
+
+        <form action="/home" method="POST" enctype="multipart/form-data" class="mt-4">
+            <div class="mb-3">
+                <input type="file" name="file" class="form-control" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload Outfit</button>
+        </form>
+
+        <h2 class="mt-5">Your Outfits</h2>
+        <div class="row justify-content-center">
+            {% for outfit in outfits %}
+            <div class="col-md-4">
+                <div class="card outfit-card">
+                    <img src="{{ url_for('static', filename='uploads/' + outfit.image_filename) }}" class="card-img-top" alt="Outfit Image">
+                    <div class="card-body">
+                        <h5 class="card-title">Matching Items:</h5>
+                        <p class="card-text">{{ outfit.matching_items }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
